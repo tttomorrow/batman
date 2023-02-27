@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.opengauss.batman.modules.dao.SysTaskDao">
+    <!-- 根据任务名称更新任务状态和任务时间 -->
+    <update id="updateTaskById" parameterType="org.opengauss.batman.modules.entity.TaskEntity">
+        UPDATE sys_task
+        <set>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="size != null and size != ''">
+                size = #{size},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime},
+            </if>
+            <if test="backupDataPath != null and backupDataPath != ''">
+                 backup_data_path = #{backupDataPath},
+            </if>
+            <if test="backupInstanceName != null and backupInstanceName != ''">
+                backup_instance_name = #{backupInstanceName},
+            </if>
+            <if test="backupId != null and backupId != ''">
+                backup_id = #{backupId},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+    <insert id="insertTask" parameterType="org.opengauss.batman.modules.entity.TaskEntity">
+        INSERT INTO sys_task
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            instance_id,
+            job_id,
+            name,
+            type,
+            start_time,
+            status,
+            <if test="size != null and size != ''">
+            size
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            #{instanceId},
+            #{jobId},
+            #{name},
+            #{type},
+            #{startTime},
+            #{status},
+            <if test="size != null and size != '' ">
+            #{size}
+            </if>
+        </trim>
+    </insert>
+    <select id="queryTaskIdByName" resultType="Long">
+        SELECT id FROM sys_task WHERE name = #{name}
+    </select>
+    <select id="queryLatestTaskByJobId" resultType="org.opengauss.batman.modules.entity.TaskEntity">
+        SELECT * FROM sys_task WHERE job_id = #{jobId} ORDER BY id DESC LIMIT 1;
+    </select>
+    <select id="queryTaskById" resultType="org.opengauss.batman.modules.entity.TaskEntity">
+        SELECT * FROM sys_task WHERE id = #{taskId};
+    </select>
+</mapper>

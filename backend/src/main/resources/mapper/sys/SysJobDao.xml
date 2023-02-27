@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.opengauss.batman.modules.dao.JobDao">
+
+	<!-- 批量更新状态 -->
+	<update id="updateBatch">
+		UPDATE sys_job SET status = #{status} WHERE job_id IN
+		<foreach item="jobId" collection="list"  open="(" separator="," close=")">
+			#{jobId}
+		</foreach>
+	</update>
+	<insert id="insertNewJob" parameterType="org.opengauss.batman.modules.entity.JobEntity">
+		INSERT INTO sys_job(instance_id, name, type, option, schedule, start_time, create_time, remark)
+		VALUES (#{instanceId}, #{name}, #{type}, #{option}, #{schedule}, #{startTime}, #{createTime}, #{remark})
+	</insert>
+	<select id="queryJobIdByName" resultType="Long">
+		SELECT id from sys_job WHERE instance_id = #{instanceId} and name = #{jobName}
+	</select>
+	<select id="queryJobById"  resultType="org.opengauss.batman.modules.entity.JobEntity">
+		SELECT * FROM sys_job where id=#{jobId}
+	</select>
+	<select id="queryJobsByIds" resultType="org.opengauss.batman.modules.entity.JobEntity" parameterType="list">
+        SELECT * FROM sys_job where id IN
+		<foreach collection="list" item="jobId" index="index" open="(" close=")" separator=",">
+			#{jobId}
+		</foreach>
+	</select>
+	<select id="queryJobsByInstanceId" resultType="org.opengauss.batman.modules.entity.JobEntity">
+		SELECT * FROM sys_job where instance_id=#{instanceId}
+	</select>
+	<select id="queryPhysicalJobByInstanceId" resultType="org.opengauss.batman.modules.entity.JobEntity">
+		SELECT * FROM sys_job where type = 'physical' and instance_id=#{instanceId}
+	</select>
+</mapper>
