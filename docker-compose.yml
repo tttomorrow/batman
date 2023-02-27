@@ -1,0 +1,45 @@
+version: "3.1"
+services:
+  database:
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile_pg
+    restart: always
+    environment:
+      POSTGRES_USER: opengauss
+      POSTGRES_PASSWORD: openGauss#2023
+      POSTGRES_DB: batman
+      POSTGRES_INITDB_ARGS: "-E utf8 --locale=en_US.utf8"
+    ports:
+      - "5432:5432"
+  batman:
+    healthcheck:
+      test: curl http://localhost:8080
+      interval: 10s
+      retries: 10
+      timeout: 2s
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    command:
+      - sleep
+      - infinity
+    depends_on:
+      - database
+  dashboard:
+    healthcheck:
+      test: curl http://localhost:8081
+      interval: 10s
+      retries: 10
+      timeout: 2s
+    restart: on-failure
+    depends_on:
+      - database
+      - batman
+    build:
+      context: ./web/
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"

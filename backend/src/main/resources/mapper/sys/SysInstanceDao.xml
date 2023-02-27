@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.opengauss.batman.modules.dao.SysInstanceDao">
+    <!-- 查询指定名称的实例 -->
+    <select id="queryInstanceByName" resultType="org.opengauss.batman.modules.entity.InstanceEntity">
+        SELECT * FROM sys_instance WHERE instance_name = #{instanceName}
+    </select>
+
+    <!-- 查询指定ID实例 -->
+    <select id="queryInstanceById" resultType="org.opengauss.batman.modules.entity.InstanceEntity">
+        SELECT * FROM sys_instance WHERE id = #{instanceId}
+    </select>
+
+    <insert id="insertNewInstance" parameterType="org.opengauss.batman.modules.entity.InstanceEntity">
+        INSERT INTO sys_instance(instance_name, instance_version, instance_ip, instance_port, os_user, os_password, backup_path, db_data_path, db_port, create_time, remark)
+        VALUES (#{instanceName}, #{instanceVersion}, #{instanceIp}, #{instancePort}, #{osUser}, #{osPassword}, #{backupPath}, #{dbDataPath}, #{dbPort}, #{createTime}, #{remark})
+    </insert>
+</mapper>

@@ -1,39 +1,47 @@
-# openGauss-batman
-
-#### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
-
-#### 软件架构
-软件架构说明
+openGauss-batman是一款前后端分离的数据库备份恢复管理软件。  
+前端采用vue2框架进行开发，后端采用spring-boot套件。  
+openGauss-batman的代码框架来源于开源的renren-fast，在其上进行了
+大量的开发改造。  
+batman缩写自Backup And resTore MANagement system中大写的英文字母。  
 
 
-#### 安装教程
+# 特点  
+* 支持逻辑备份和物理备份
+* 物理备份支持全量备份和增量备份
+* 全量备份和增量备份均支持周期性备份
+* 支持物理备份后恢复到指定的备份集
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+# 限制约束
+* 单实例最多支持各一个物理全量备份和物理增量备份计划
+* 备份命令采用SSH remote的方式执行
+* 目前仅支持本地盘备份
+* batman自身的数据存储使用PostgreSQL数据库，主要原因是由于PG良好的平台兼容性。
+* node.js建议使用v14版本，在其它版本上前端代码可能会编译失败
 
-#### 使用说明
+# 使用说明
+## 从源码启动
+源码启动的方式需要用户自己配置好数据源，当前支持的数据库为PostgreSQL。
+1、在数据库实例中创建batman数据库
+2、修改backend/src/main/resources/application-prod.yml中的数据库的连接IP、用户名以及密码
+3、进入backend目录，执行以下命令进行打包，
+```shell
+  mvn package
+```
+4、进入生成的target目录下，执行以下命令启动后端服务
+```shell
+  java -jar opengauss-batman.jar
+```
+5、切换到web目录,执行以下命令，启动前端服务
+```shell
+  sudo npm install -g serve
+  npm run build:prod
+  serve -s dist -p 8081
+```
+## 快速启动
+  使用docker-compose快速打包体验。在batman目录下执行以下命令即可快速启动
+  ```shell
+  docker-compose up -d 
+  ```
+  启动成功后，在浏览器中输入127.0.0.1:8081即可进入管理系统
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
 
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
