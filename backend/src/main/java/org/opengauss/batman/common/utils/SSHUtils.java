@@ -18,7 +18,7 @@ import java.util.Properties;
 public class SSHUtils {
     private static final Logger LOG = LoggerFactory.getLogger(SSHUtils.class);
 
-    private static final int TIMEOUT = 24 * 60 * 60 * 1000;
+    private static final int TIMEOUT = 2 * 60 * 60 * 1000;
 
     /**
      * 获取session

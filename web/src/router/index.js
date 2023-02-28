@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import http from '@/utils/request'
-import { isURL } from '@/utils/validate'
 
 Vue.use(Router)
 

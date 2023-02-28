@@ -8,9 +8,6 @@ import '@/icons'
 import '@/element-ui/theme/index.css'
 import '@/assets/scss/aui.scss'
 import http from '@/utils/request'
-import renRadioGroup from '@/components/ren-radio-group'
-import renRegionTree from '@/components/ren-region-tree'
-import { hasPermission } from '@/utils'
 import cloneDeep from 'lodash/cloneDeep'
 
 Vue.config.productionTip = false
@@ -20,12 +17,8 @@ Vue.use(Element, {
   i18n: (key, value) => i18n.t(key, value)
 })
 
-Vue.use(renRadioGroup)
-Vue.use(renRegionTree)
-
 // 挂载全局
 Vue.prototype.$http = http
-Vue.prototype.$hasPermission = hasPermission
 
 // 保存整站vuex本地储存初始状态
 window.SITE_CONFIG['storeState'] = cloneDeep(store.state)

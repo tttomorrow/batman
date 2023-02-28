@@ -23,10 +23,10 @@ import java.util.Date;
  * @author Mark sunlightcs@gmail.com
  */
 public class DateUtils {
-	/** 时间格式(yyyy-MM-dd) */
-	public final static String DATE_PATTERN = "yyyy-MM-dd";
-	/** 时间格式(yyyy-MM-dd HH:mm:ss) */
-	public final static String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+
+	private static final String DATE_PATTERN = "yyyy-MM-dd";
+
+    private static final String DATE_TIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
 
     /**
      * 日期格式化 日期格式为：yyyy-MM-dd
@@ -44,7 +44,7 @@ public class DateUtils {
      * @return  返回yyyy-MM-dd格式日期
      */
     public static String format(Date date, String pattern) {
-        if(date != null){
+        if (date != null){
             SimpleDateFormat df = new SimpleDateFormat(pattern);
             return df.format(date);
         }
@@ -57,12 +57,11 @@ public class DateUtils {
      * @param pattern 日期的格式，如：DateUtils.DATE_TIME_PATTERN
      */
     public static Date stringToDate(String strDate, String pattern) {
-        if (StringUtils.isBlank(strDate)){
-            return null;
+        if (StringUtils.isNotBlank(strDate)) {
+            DateTimeFormatter fmt = DateTimeFormat.forPattern(pattern);
+            return fmt.parseLocalDateTime(strDate).toDate();
         }
-
-        DateTimeFormatter fmt = DateTimeFormat.forPattern(pattern);
-        return fmt.parseLocalDateTime(strDate).toDate();
+        return null;
     }
 
     /**
