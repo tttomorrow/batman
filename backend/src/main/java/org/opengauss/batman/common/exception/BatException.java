@@ -16,6 +16,7 @@ import org.opengauss.batman.common.ErrorCode;
  * @author Mark sunlightcs@gmail.com
  */
 public class BatException extends RuntimeException {
+
 	private static final long serialVersionUID = 1L;
 	
     private String msg;

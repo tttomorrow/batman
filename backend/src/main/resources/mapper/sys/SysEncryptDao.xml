@@ -7,7 +7,7 @@
     </insert>
 
     <select id="queryEntityById" resultType="org.opengauss.batman.modules.entity.PasswordEntity">
-        SELECT * FROM sys_encrypt WHERE id = #{instanceId}
+        SELECT * FROM sys_encrypt WHERE instance_id = #{instanceId}
     </select>
     <delete id="deleteByInstanceId" parameterType="java.util.List" >
         DELETE FROM sys_encrypt WHERE instance_id IN

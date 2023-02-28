@@ -49,7 +49,7 @@ public class IPUtils {
                 ip = request.getRemoteAddr();
             }
         } catch (Exception e) {
-            LOGGER.error("IPUtils ERROR ", ExceptionUtils.getStackTrace(e));
+            LOGGER.error("IPUtils ERROR : {}", ExceptionUtils.getStackTrace(e));
         }
         
 //        //使用代理，则获取第一个IP地址
@@ -61,5 +61,4 @@ public class IPUtils {
         
         return ip;
     }
-	
 }

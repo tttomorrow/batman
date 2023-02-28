@@ -16,7 +16,7 @@ RUN \
 
 COPY . /app
 WORKDIR /app
-RUN \ 
+RUN \
   npm run build:prod 
 
 FROM openeuler/openeuler:22.03-lts
