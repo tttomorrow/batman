@@ -9,6 +9,9 @@
 package org.opengauss.batman.common.utils;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.List;
@@ -18,6 +21,8 @@ import java.util.List;
  *
  * @author Mark sunlightcs@gmail.com
  */
+@Setter
+@Getter
 public class PageUtils implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -66,13 +71,5 @@ public class PageUtils implements Serializable {
 		this.pageSize = (int)page.getSize();
 		this.currPage = (int)page.getCurrent();
 		this.totalPage = (int)page.getPages();
-	}
-
-	public List<?> getList() {
-		return list;
-	}
-
-	public void setList(List<?> list) {
-		this.list = list;
 	}
 }
