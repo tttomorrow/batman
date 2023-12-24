@@ -38,7 +38,7 @@
 		<joda.time.version>2.12.2</joda.time.version>
 		<gson.version>2.10</gson.version>
 		<fastjson.version>2.0.22</fastjson.version>
-		<hutool.version>5.8.11</hutool.version>
+		<hutool.version>5.8.12</hutool.version>
 		<lombok.version>1.18.24</lombok.version>
 		<jsch.version>0.1.55</jsch.version>
 		<codec.version>1.15</codec.version>
